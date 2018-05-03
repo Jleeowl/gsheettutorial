@@ -1,27 +1,28 @@
 const GoogleSpreadsheet = require('google-spreadsheet')
 const creds = require('') // IMPORT YOUR CREDENTIALS HERE
-
-const doc = new GoogleSpreadsheet('') // INSERT YOUR URL KEY HERE
 const { promisify } = require('util')
+
+const doc = new GoogleSpreadsheet('') // INSERT YOUR URL LONG KEY HERE
 
 const useServiceAccountAuth = promisify(doc.useServiceAccountAuth)
 const getInfo = promisify(doc.getInfo)
 
-let exampleFunc = async () => {
+let exampleFun = async () => {
   try {
     await useServiceAccountAuth(creds)
-    let info = await getInfo()
-    console.log(info)
+    let gs = await getInfo()
 
-    let sheet = info.worksheets[0]
+    // console.log(gs)
+
+    let sheet = gs.worksheets[0]
     await sheet.setHeaderRow(['Task', 'Completion Status', 'Created At', 'Updated At'])
 
     // let addRow = promisify(sheet.addRow)
     // await addRow({
-    //   task: 'Teach how to integrate Google spreadsheet with Node.js',
+    //   task: 'Teach Google spreadsheet integration with Nodejs.',
     //   completionstatus: false,
     //   createdat: new Date(Date.now()),
-    //   updatedat: new Date(Date.now())
+    //   updateat: new Date(Date.now())
     // })
 
     let getRows = promisify(sheet.getRows)
@@ -36,4 +37,4 @@ let exampleFunc = async () => {
     console.log(err)
   }
 }
-exampleFunc()
+exampleFun()
